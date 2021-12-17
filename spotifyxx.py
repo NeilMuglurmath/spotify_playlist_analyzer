@@ -45,6 +45,12 @@ saucePlaylist = sp.playlist(saucePlaylist)['tracks']['items']
 
 # print(json.dumps(saucePlaylist, sort_keys=True, indent=4))
 
+songs = []
+
 for song in saucePlaylist:
-    print(song['track']['name'])
-    # print(json.dumps(VARIABLE, sort_keys=True,indent=4))
+    songs.append(song['track'])
+
+songs.sort(key=lambda k: k.get('popularity', 0), reverse=True)
+for song in songs:
+    print(song['name'] + ' ' + str(song['popularity']))
+# print(json.dumps(VARIABLE, sort_keys=True,indent=4))
