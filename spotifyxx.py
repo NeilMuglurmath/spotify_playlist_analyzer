@@ -14,11 +14,11 @@ username = '6psubnv3mv8q2l9z7uuu2ngjk'
 scope = 'user-read-private user-read-playback-state user-modify-playback-state'
 
 # export SPOTIPY_CLIENT_ID='b59407bb1d1c4a0a9d4674608cd1434d'
-# export SPOTIPY_CLIENT_SECRET='765695b9a95e426282e1cd0ce679be71'
+# export SPOTIPY_CLIENT_SECRET='18e760b09ad8420c8af333e05ed92788'
 # export SPOTIPY_REDIRECT_URI='http://google.com/'
 
 SPOTIPY_CLIENT_ID = 'b59407bb1d1c4a0a9d4674608cd1434d'
-SPOTIPY_CLIENT_SECRET = '765695b9a95e426282e1cd0ce679be71'
+SPOTIPY_CLIENT_SECRET = '18e760b09ad8420c8af333e05ed92788'
 SPOTIPY_REDIRECT_URI = 'http://google.com/'
 
 try:
@@ -35,6 +35,16 @@ auth_manager = SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID,
                             scope=scope)
 
 sp = spotipy.Spotify(auth_manager=auth_manager)
-usr = sp.current_user()
+currPlaylists = sp.current_user_playlists()
 
-# print(json.dumps(VARIABLE, sort_keys=True,indent=4))
+saucePlaylist = currPlaylists['items'][0]['id']
+
+saucePlaylist = sp.playlist(saucePlaylist)['tracks']['items']
+
+# print(len(saucePlaylist))
+
+# print(json.dumps(saucePlaylist, sort_keys=True, indent=4))
+
+for song in saucePlaylist:
+    print(song['track']['name'])
+    # print(json.dumps(VARIABLE, sort_keys=True,indent=4))
