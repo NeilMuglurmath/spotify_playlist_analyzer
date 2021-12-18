@@ -28,10 +28,10 @@ saucePlaylist = currPlaylists['items'][0]['id']
 saucePlaylist = sp.playlist(saucePlaylist)['tracks']['items']
 
 features = []
-d = {}
+songNames = {}
 
 for song in saucePlaylist:
-    d[song['track']['id']] = song['track']['name']
+    songNames[song['track']['id']] = song['track']['name']
     features.append(sp.audio_features(song['track']['id']))
 
 
@@ -44,7 +44,7 @@ while True:
         features = sorted(
             features, key=lambda x: x[0]['acousticness'], reverse=True)
         for f in features:
-            trackName = d[f[0]['id']]
+            trackName = songNames[f[0]['id']]
             acousticness = f[0]['acousticness']
             print(f"Track name: {trackName}, Acousticness: {acousticness}")
 
@@ -52,7 +52,7 @@ while True:
         features = sorted(
             features, key=lambda x: x[0]['danceability'], reverse=True)
         for f in features:
-            trackName = d[f[0]['id']]
+            trackName = songNames[f[0]['id']]
             danceability = f[0]['danceability']
             print(f"Track name: {trackName}, danceability: {danceability}")
 
@@ -60,7 +60,7 @@ while True:
         features = sorted(
             features, key=lambda x: x[0]['duration_ms'], reverse=True)
         for f in features:
-            trackName = d[f[0]['id']]
+            trackName = songNames[f[0]['id']]
             duration = f[0]['duration_ms']
             print(f"Track name: {trackName}, duration: {duration}")
 
@@ -68,7 +68,7 @@ while True:
         features = sorted(
             features, key=lambda x: x[0]['energy'], reverse=True)
         for f in features:
-            trackName = d[f[0]['id']]
+            trackName = songNames[f[0]['id']]
             energy = f[0]['energy']
             print(f"Track name: {trackName}, energy: {energy}")
 
@@ -76,7 +76,7 @@ while True:
         features = sorted(
             features, key=lambda x: x[0]['key'], reverse=True)
         for f in features:
-            trackName = d[f[0]['id']]
+            trackName = songNames[f[0]['id']]
             key = f[0]['key']
             print(f"Track name: {trackName}, key: {key}")
 
@@ -84,7 +84,7 @@ while True:
         features = sorted(
             features, key=lambda x: x[0]['liveness'], reverse=True)
         for f in features:
-            trackName = d[f[0]['id']]
+            trackName = songNames[f[0]['id']]
             liveness = f[0]['liveness']
             print(f"Track name: {trackName}, liveness: {liveness}")
 
@@ -92,7 +92,7 @@ while True:
         features = sorted(
             features, key=lambda x: x[0]['loudness'], reverse=True)
         for f in features:
-            trackName = d[f[0]['id']]
+            trackName = songNames[f[0]['id']]
             loudness = f[0]['loudness']
             print(f"Track name: {trackName}, loudness: {loudness}")
 
@@ -100,7 +100,7 @@ while True:
         features = sorted(
             features, key=lambda x: x[0]['tempo'], reverse=True)
         for f in features:
-            trackName = d[f[0]['id']]
+            trackName = songNames[f[0]['id']]
             tempo = f[0]['tempo']
             print(f"Track name: {trackName}, tempo: {tempo}")
     elif feature == 'q':
