@@ -35,22 +35,28 @@ auth_manager = SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID,
                             scope=scope)
 
 sp = spotipy.Spotify(auth_manager=auth_manager)
+
 currPlaylists = sp.current_user_playlists()
-
 saucePlaylist = currPlaylists['items'][0]['id']
-
 saucePlaylist = sp.playlist(saucePlaylist)['tracks']['items']
 
-# print(len(saucePlaylist))
-
-# print(json.dumps(saucePlaylist, sort_keys=True, indent=4))
-
-songs = []
+features = []
+d = {}
 
 for song in saucePlaylist:
-    songs.append(song['track'])
+    d[song['track']['id']] = song['track']['name']
+    features.append(sp.audio_features(song['track']['id']))
 
-songs.sort(key=lambda k: k.get('popularity', 0), reverse=True)
-for song in songs:
-    print(song['name'] + ' ' + str(song['popularity']))
+print('>>>a: acousticness, d: danceability, du: duration, e: energy, k: key, l: liveness, lo: loudness, t: tempo')
+feature = input(
+    f">>>What feature do you want to Analyze, {sp.current_user()['display_name']}? ")
+
+if feature == 'a':
+    features = sorted(
+        features, key=lambda x: x[0]['acousticness'], reverse=True)
+    for f in features:
+        trackName = d[f[0]['id']]
+        acousticness = f[0]['acousticness']
+        print(f"Track name: {trackName}, Acousticness: {acousticness}")
+
 # print(json.dumps(VARIABLE, sort_keys=True,indent=4))
